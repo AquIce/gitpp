@@ -58,8 +58,8 @@ def copy(user, repo, your_user, your_repo, commit_message='', no_clone = False, 
 def empty(repo_dir, user=''):
 	if(not os.path.exists(repo_dir)):
 		if(user == ''):
-			print('ERROR: No user provided')
-			exit()
+			print('fatal error: No user provided')
+			sys.exit()
 		clone(user, repo_dir)
 	repo_dir = os.path.abspath(repo_dir)
 	os.chdir(repo_dir)
@@ -79,65 +79,8 @@ def empty(repo_dir, user=''):
 def status():
 	os.system('git status')
 
-if(__name__ == '__main__'):
-	args = sys.argv[1:]
-	if(len(args) == 0):
-		print('ERROR: No arguments provided')
-		exit()
-	if(args[0] == 'clone'):
-		if(len(args) != 3 and len(args) != 4):
-			print('ERROR: Wrong number of arguments provided (expected 2: user, repo or 3: user, repo, loc)')
-			exit()
-		if(len(args) == 3):
-			clone(args[1], args[2])
-		else:
-			clone(args[1], args[2], args[3])
-	elif(args[0] == 'commit'):
-		if(len(args) != 2):
-			print('ERROR: Wrong number of arguments provided (expected 1: message)')
-			exit()
-		commit(args[1])
-	elif(args[0] == 'push'):
-		if(len(args) != 1):
-			print('ERROR: Wrong number of arguments provided (expected 0)')
-			exit()
-		push()
-	elif(args[0] == 'pull'):
-		if(len(args) != 1):
-			print('ERROR: Wrong number of arguments provided (expected 0)')
-			exit()
-		pull()
-	elif(args[0] == 'add'):
-		if(len(args) == 1):
-			add_all()
-		else:
-			add(args[1:])
-	elif(args[0] == 'copy'):
-		if(len(args) != 5 and len(args) != 6 and len(args) != 7):
-			print(len(args))
-			print('ERROR: Wrong number of arguments provided (expected 4: user, repo, your_user, your_repo, 5: user, repo, your_user, your_repo, commit_message or 6: user, repo, your_user, your_repo, commit_message, no_clone/loc)')
-			exit()
-		if(len(args) == 5):
-			copy(args[1], args[2], args[3], args[4])
-		elif(len(args) == 6):
-			copy(args[1], args[2], args[3], args[4], args[5])
-		elif(len(args) == 7):
-			if(args[6] == '--no-clone'):
-				copy(args[1], args[2], args[3], args[4], args[5], True)
-			else:
-				copy(args[1], args[2], args[3], args[4], args[5], False, args[6])
-	elif(args[0] == 'empty'):
-		if(len(args) != 3 or len(args) != 2):
-			print('ERROR: Wrong number of arguments provided (expected 1: repo_dir or 2: user, repo_dir )')
-			exit()
-		if(len(args) == 2):
-			empty(args[1])
-		else:
-			empty(args[2], args[1])
-	elif(args[0] == 'status'):
-		status()
-	elif(args[0] == 'help'):
-		print('''COMMAND LIST:
+def help():
+	print('''git++ v1.0 by @SinisterIcy
 
 clone <user> <repo>: Clones <repo> from <user> to current directory + <repo>
 clone <user> <repo> <loc>: Clones <repo> from <user> to <loc>
@@ -154,3 +97,62 @@ empty <repo_dir>: Empties <repo_dir> (the repo must be right in <repo_dir>)
 empty <user> <repo_dir>: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
 status: Prints git status
 help: Prints this message''')
+
+if(__name__ == '__main__'):
+	args = sys.argv[1:]
+	if(len(args) == 0):
+		help()
+	elif(args[0] == 'clone'):
+		if(len(args) != 3 and len(args) != 4):
+			print('fatal error: wrong number of arguments provided (expected 2: user, repo or 3: user, repo, loc)')
+			sys.exit()
+		if(len(args) == 3):
+			clone(args[1], args[2])
+		else:
+			clone(args[1], args[2], args[3])
+	elif(args[0] == 'commit'):
+		if(len(args) != 2):
+			print('fatal error: wrong number of arguments provided (expected 1: message)')
+			sys.exit()
+		commit(args[1])
+	elif(args[0] == 'push'):
+		if(len(args) != 1):
+			print('fatal error: wrong number of arguments provided (expected 0)')
+			sys.exit()
+		push()
+	elif(args[0] == 'pull'):
+		if(len(args) != 1):
+			print('fatal error: wrong number of arguments provided (expected 0)')
+			sys.exit()
+		pull()
+	elif(args[0] == 'add'):
+		if(len(args) == 1):
+			add_all()
+		else:
+			add(args[1:])
+	elif(args[0] == 'copy'):
+		if(len(args) != 5 and len(args) != 6 and len(args) != 7):
+			print(len(args))
+			print('fatal error: wrong number of arguments provided (expected 4: user, repo, your_user, your_repo, 5: user, repo, your_user, your_repo, commit_message or 6: user, repo, your_user, your_repo, commit_message, no_clone/loc)')
+			sys.exit()
+		if(len(args) == 5):
+			copy(args[1], args[2], args[3], args[4])
+		elif(len(args) == 6):
+			copy(args[1], args[2], args[3], args[4], args[5])
+		elif(len(args) == 7):
+			if(args[6] == '--no-clone'):
+				copy(args[1], args[2], args[3], args[4], args[5], True)
+			else:
+				copy(args[1], args[2], args[3], args[4], args[5], False, args[6])
+	elif(args[0] == 'empty'):
+		if(len(args) != 3 or len(args) != 2):
+			print('fatal error: wrong number of arguments provided (expected 1: repo_dir or 2: user, repo_dir )')
+			sys.exit()
+		if(len(args) == 2):
+			empty(args[1])
+		else:
+			empty(args[2], args[1])
+	elif(args[0] == 'status'):
+		status()
+	elif(args[0] == 'help'):
+		help()
