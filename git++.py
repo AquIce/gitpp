@@ -152,4 +152,5 @@ copy <user> <repo> <your_user> <your_repo> <commit_message> --no-clone: Copies <
 copy <user> <repo> <your_user> <your_repo> <commit_message> <loc>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> in <loc>
 empty <repo_dir>: Empties <repo_dir> (the repo must be right in <repo_dir>)
 empty <user> <repo_dir>: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
+status: Prints git status
 help: Prints this message''')
