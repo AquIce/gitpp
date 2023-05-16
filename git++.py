@@ -76,6 +76,9 @@ def empty(repo_dir, user=''):
 	os.chdir('..')
 	os.system(f'rmdir {repo_dir} /s /q')
 
+def status():
+	os.system('git status')
+
 if(__name__ == '__main__'):
 	args = sys.argv[1:]
 	if(len(args) == 0):
@@ -131,6 +134,8 @@ if(__name__ == '__main__'):
 			empty(args[1])
 		else:
 			empty(args[2], args[1])
+	elif(args[0] == 'status'):
+		status()
 	elif(args[0] == 'help'):
 		print('''COMMAND LIST:
 
