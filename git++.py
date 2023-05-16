@@ -55,8 +55,11 @@ def copy(user, repo, your_user, your_repo, commit_message='', no_clone = False, 
 	if(no_clone):
 		os.system(f'rmdir {loc} /s /q')
 
-def empty(user, repo_dir):
+def empty(repo_dir, user=''):
 	if(not os.path.exists(repo_dir)):
+		if(user == ''):
+			print('ERROR: No user provided')
+			exit()
 		clone(user, repo_dir)
 	repo_dir = os.path.abspath(repo_dir)
 	os.chdir(repo_dir)
@@ -76,11 +79,11 @@ def empty(user, repo_dir):
 if(__name__ == '__main__'):
 	args = sys.argv[1:]
 	if(len(args) == 0):
-		print('ERROR : No arguments provided')
+		print('ERROR: No arguments provided')
 		exit()
 	if(args[0] == 'clone'):
 		if(len(args) != 3 and len(args) != 4):
-			print('ERROR : Wrong number of arguments provided (expected 2 : user, repo or 3 : user, repo, loc)')
+			print('ERROR: Wrong number of arguments provided (expected 2: user, repo or 3: user, repo, loc)')
 			exit()
 		if(len(args) == 3):
 			clone(args[1], args[2])
@@ -88,17 +91,17 @@ if(__name__ == '__main__'):
 			clone(args[1], args[2], args[3])
 	elif(args[0] == 'commit'):
 		if(len(args) != 2):
-			print('ERROR : Wrong number of arguments provided (expected 1 : message)')
+			print('ERROR: Wrong number of arguments provided (expected 1: message)')
 			exit()
 		commit(args[1])
 	elif(args[0] == 'push'):
 		if(len(args) != 1):
-			print('ERROR : Wrong number of arguments provided (expected 0)')
+			print('ERROR: Wrong number of arguments provided (expected 0)')
 			exit()
 		push()
 	elif(args[0] == 'pull'):
 		if(len(args) != 1):
-			print('ERROR : Wrong number of arguments provided (expected 0)')
+			print('ERROR: Wrong number of arguments provided (expected 0)')
 			exit()
 		pull()
 	elif(args[0] == 'add'):
@@ -109,7 +112,7 @@ if(__name__ == '__main__'):
 	elif(args[0] == 'copy'):
 		if(len(args) != 5 and len(args) != 6 and len(args) != 7):
 			print(len(args))
-			print('ERROR : Wrong number of arguments provided (expected 4 : user, repo, your_user, your_repo, 5 : user, repo, your_user, your_repo, commit_message or 6 : user, repo, your_user, your_repo, commit_message, no_clone/loc)')
+			print('ERROR: Wrong number of arguments provided (expected 4: user, repo, your_user, your_repo, 5: user, repo, your_user, your_repo, commit_message or 6: user, repo, your_user, your_repo, commit_message, no_clone/loc)')
 			exit()
 		if(len(args) == 5):
 			copy(args[1], args[2], args[3], args[4])
@@ -121,7 +124,27 @@ if(__name__ == '__main__'):
 			else:
 				copy(args[1], args[2], args[3], args[4], args[5], False, args[6])
 	elif(args[0] == 'empty'):
-		if(len(args) != 3):
-			print('ERROR : Wrong number of arguments provided (expected 2: user, repo_dir)')
+		if(len(args) != 3 or len(args) != 2):
+			print('ERROR: Wrong number of arguments provided (expected 1: repo_dir or 2: user, repo_dir )')
 			exit()
-		empty(args[1], args[2])
+		if(len(args) == 2):
+			empty(args[1])
+		else:
+			empty(args[2], args[1])
+	elif(args[0] == 'help'):
+		print('''COMMAND LIST:
+
+clone <user> <repo>: Clones <repo> from <user> to current directory + <repo>
+clone <user> <repo> <loc>: Clones <repo> from <user> to <loc>
+commit <message>: Commits with <message>
+push: Pushes to remote
+pull: Pulls from remote
+add: Adds all files to staging area
+add <files...>: Adds <files> to staging area
+copy <user> <repo> <your_user> <your_repo>: Copies <repo> from <user> to <your_repo> from <your_user> with 'Copied <user>/<repo> to <your_user>/<your_repo>' as commit message
+copy <user> <repo> <your_user> <your_repo> <commit_message>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message>
+copy <user> <repo> <your_user> <your_repo> <commit_message> --no-clone: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> and does not clone the repo
+copy <user> <repo> <your_user> <your_repo> <commit_message> <loc>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> in <loc>
+empty <repo_dir>: Empties <repo_dir> (the repo must be right in <repo_dir>)
+empty <user> <repo_dir>: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
+help: Prints this message''')
