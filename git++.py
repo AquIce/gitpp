@@ -107,7 +107,12 @@ copy <user> <repo> <your_user> <your_repo> <commit_message> <loc>: Copies <repo>
 empty <repo_dir>: Empties <repo_dir> (the repo must be right in <repo_dir>)
 empty <user> <repo_dir>: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
 status: Prints git status
+<any_other_args>: Runs the corresponding git command
 help: Prints this message''')
+
+
+def other(args):
+    os.system('git', ' '.join(args))
 
 
 if (__name__ == '__main__'):
@@ -171,3 +176,5 @@ if (__name__ == '__main__'):
         status()
     elif (args[0] == 'help'):
         help()
+    else:
+        other(args)
