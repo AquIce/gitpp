@@ -94,6 +94,7 @@ push: Pushes to remote
 pull: Pulls from remote
 add: Adds all files to staging area
 add <files...>: Adds <files> to staging area
+save <message>: Adds all files, commits with <message> and pushes to remote
 copy <user> <repo> <your_user> <your_repo>: Copies <repo> from <user> to <your_repo> from <your_user> with 'Copied <user>/<repo> to <your_user>/<your_repo>' as commit message
 copy <user> <repo> <your_user> <your_repo> <commit_message>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message>
 copy <user> <repo> <your_user> <your_repo> <commit_message> --no-clone: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> and does not clone the repo
