@@ -49,6 +49,13 @@ git++ add <files...>
 ```
 - Adds `<files>` to staging area
 
+### save
+
+```html
+git++ save <message>
+```
+- Adds all files, commits with `<message>` and pushes to remote
+
 ### copy
 
 ```html
