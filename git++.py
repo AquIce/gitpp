@@ -1,10 +1,14 @@
 '''
- > git++ is a python script that allows you to use git commands in an easier and more user friendly way.
+ >{_RESET} git++ is a python script that allows you to use git commands in an easier and more user friendly way.
 '''
 
 import os
 import sys
 import shutil
+
+_GREEN = '\033[32m'
+_BLUE = '\033[94m'
+_RESET = '\033[0m'
 
 def _git_copy_files(src, dest):
 	src = os.path.abspath(src)
@@ -85,28 +89,40 @@ def status():
 	os.system('git status')
 
 def help():
-	print('''git++ v1.0 by @SinisterIcy
+	print(f'''git++ v1.0 by @SinisterIcy
 
-clone <user> <repo>: Clones <repo> from <user> to current directory + <repo>
-clone <user> <repo> <loc>: Clones <repo> from <user> to <loc>
-commit <message>: Commits with <message>
-push: Pushes to remote
-pull: Pulls from remote
-add: Adds all files to staging area
-add <files...>: Adds <files> to staging area
-save <message>: Adds all files, commits with <message> and pushes to remote
-copy <user> <repo> <your_user> <your_repo>: Copies <repo> from <user> to <your_repo> from <your_user> with 'Copied <user>/<repo> to <your_user>/<your_repo>' as commit message
-copy <user> <repo> <your_user> <your_repo> <commit_message>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message>
-copy <user> <repo> <your_user> <your_repo> <commit_message> --no-clone: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> and does not clone the repo
-copy <user> <repo> <your_user> <your_repo> <commit_message> <loc>: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> in <loc>
-empty <repo_dir>: Empties <repo_dir> (the repo must be right in <repo_dir>)
-empty <user> <repo_dir>: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
-status: Prints git status
-<any_other_args>: Runs the corresponding git command
-help: Prints this message''')
+git++ {_GREEN}clone{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET}: Clones <repo> from <user> to current directory + <repo>
+git++ {_GREEN}clone{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET} {_BLUE}<loc>{_RESET}: Clones <repo> from <user> to <loc>
+
+git++ {_GREEN}commit{_RESET} {_BLUE}<message>{_RESET}: Commits with <message>
+
+git++ {_GREEN}push{_RESET}: Pushes to remote
+
+git++ {_GREEN}pull{_RESET}: Pulls from remote
+
+git++ {_GREEN}add{_RESET}: Adds all files to staging area
+git++ {_GREEN}add{_RESET} {_BLUE}<files...>{_RESET}: Adds <files> to staging area
+
+git++ {_GREEN}save{_RESET} {_BLUE}<message>{_RESET}: Adds all files, commits with <message> and pushes to remote
+
+git++ {_GREEN}copy{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET} {_BLUE}<your_user>{_RESET} {_BLUE}<your_repo>{_RESET}: Copies <repo> from <user> to <your_repo> from <your_user> with 'Copied <user>/<repo> to <your_user>/<your_repo>' as commit message
+git++ {_GREEN}copy{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET} {_BLUE}<your_user>{_RESET} {_BLUE}<your_repo>{_RESET} {_BLUE}<commit_message>{_RESET}: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message>
+git++ {_GREEN}copy{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET} {_BLUE}<your_user>{_RESET} {_BLUE}<your_repo>{_RESET} {_BLUE}<commit_message>{_RESET} --no-clone: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> and does not clone the repo
+git++ {_GREEN}copy{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo>{_RESET} {_BLUE}<your_user>{_RESET} {_BLUE}<your_repo>{_RESET} {_BLUE}<commit_message>{_RESET} {_BLUE}<loc>{_RESET}: Copies <repo> from <user> to <your_repo> from <your_user> with <commit_message> in <loc>
+
+git++ {_GREEN}empty{_RESET} {_BLUE}<repo_dir>{_RESET}: Empties <repo_dir> (the repo must be right in <repo_dir>)
+git++ {_GREEN}empty{_RESET} {_BLUE}<user>{_RESET} {_BLUE}<repo_dir>{_RESET}: Empties <repo_dir> (the repo does not need to be right in <repo_dir>) and clones <repo> from <user> to <repo_dir>
+
+git++ {_GREEN}status{_RESET}: Prints git status
+
+git++ {_GREEN}<any_other_args>{_RESET}: Runs the corresponding git command
+
+git++ {_GREEN}help{_RESET}: Prints this message
+
+Go to https://github.com/SinisterIcy/gitpp for more detailled documentation''')
 
 def other(args):
-	os.system('git', ' '.join(args))
+	os.system(f'git {" ".join(args)}')
 
 if (__name__ == '__main__'):
 	args = sys.argv[1:]
