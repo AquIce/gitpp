@@ -1,5 +1,5 @@
 '''
- >{_RESET} git++ is a python script that allows you to use git commands in an easier and more user friendly way.
+ > git++ is a python script that allows you to use git commands in an easier and more user friendly way.
 '''
 
 import os
