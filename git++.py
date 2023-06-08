@@ -38,7 +38,7 @@ def add(filenames):
 		os.system(f'git add {i}')
 
 def add_all():
-	os.system('git add .')
+	os.system('git add --all')
 
 def save(message):
 	add_all()
